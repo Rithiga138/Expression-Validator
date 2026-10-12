@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expression Validator – DSA-Powered Expression Analysis</title>
+  <meta name="description" content="Validate, detect, convert and evaluate mathematical expressions using stack-based data structures.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Expression Validator, back to top">
+        <img class="brand-icon" src="assets/logo.svg" alt="" width="32" height="32">
+        <span class="brand-text">
+          <span class="brand-name">Expression Validator</span>
+          <span class="brand-sub">DSA-Powered Expression Analysis</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#workspace">Expression</a>
+        <a href="#notations">Notations</a>
+      </nav>
+
+      <!-- Backend connection indicator; click to re-check. Filled in by ui.js -->
+      <button type="button" class="backend-pill" id="backend-status" data-state="checking"
+              aria-label="Backend connection status. Activate to check again.">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="backend-pill-text">Checking backend…</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO + WORKSPACE ============ -->
+    <section class="hero container" aria-labelledby="hero-title">
+      <h1 id="hero-title">Analyze Mathematical Expressions</h1>
+      <p class="hero-sub">Validate, detect, convert and evaluate expressions using stack-based data structures.</p>
+    </section>
+
+    <section class="workspace container" id="workspace" aria-label="Expression workspace">
+      <!-- Expression input -->
+      <form class="panel input-panel" id="analyze-form" novalidate>
+        <div class="panel-head">
+          <label class="panel-title" for="expression-input">Expression</label>
+          <div class="example-picker">
+            <label class="visually-hidden" for="example-select">Try an example</label>
+            <select id="example-select">
+              <option value="">Try Example</option>
+            </select>
+          </div>
+        </div>
+
+        <input id="expression-input" class="expression-input" type="text"
+               placeholder="Enter an expression, e.g. (25 + 15) * 2"
+               autocomplete="off" autocapitalize="off" spellcheck="false"
+               aria-describedby="input-hint input-message">
+        <p class="input-message" id="input-message" role="alert" hidden></p>
+        <p class="input-hint" id="input-hint">
+          Supported: Numbers • Decimals • Variables (A–Z) • + - * / % ^ • Parentheses
+        </p>
+
+        <button type="submit" class="btn-primary" id="analyze-btn">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-label">Analyze</span>
+        </button>
+      </form>
+
+      <!-- RIGHT: analysis result (filled in by ui.js) -->
+      <section class="panel result-panel" aria-labelledby="result-title" hidden>
+        <div class="panel-head">
+          <h2 class="panel-title" id="result-title">Analysis</h2>
+        </div>
+        <div id="result-container" class="result-container" aria-live="polite" aria-busy="false"></div>
+      </section>
+    </section>
+
+    <!-- ============ STACK EXECUTION ============ -->
+    <section class="section container" id="stack-section" aria-labelledby="stack-title" hidden>
+      <div class="section-head">
+        <h2 id="stack-title">Stack Execution</h2>
+        <p>Visual representation of stack operations during evaluation.</p>
+      </div>
+      <div id="stack-container" class="panel stack-panel"></div>
+    </section>
+
+    <!-- ============ NOTATIONS ============ -->
+    <section class="section container" id="notations" aria-labelledby="notations-title" hidden>
+      <div class="section-head">
+        <h2 id="notations-title">Expression Notations</h2>
+        <p>The same calculation can be written three ways. The position of the operator is what differs.</p>
+      </div>
+      <div class="card-grid three">
+        <article class="panel notation-card" data-notation-card="INFIX">
+          <h3>Infix</h3>
+          <code class="notation-example" data-field="example">A + B</code>
+          <p data-field="description">Operator appears between operands.</p>
+          <p class="notation-full">Example: <code>(25 + 15) * 2</code></p>
+        </article>
+        <article class="panel notation-card" data-notation-card="PREFIX">
+          <h3>Prefix</h3>
+          <code class="notation-example" data-field="example">+ A B</code>
+          <p data-field="description">Operator appears before operands.</p>
+          <p class="notation-full">Example: <code>* + 25 15 2</code></p>
+        </article>
+        <article class="panel notation-card" data-notation-card="POSTFIX">
+          <h3>Postfix</h3>
+          <code class="notation-example" data-field="example">A B +</code>
+          <p data-field="description">Operator appears after operands.</p>
+          <p class="notation-full">Example: <code>25 15 + 2 *</code></p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span></span>
+      <span class="muted"></span>
+    </div>
+  </footer>
+
+  <!-- Plain scripts (no modules) so the page also works from file://. Order matters. -->
+  <script src="js/api.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

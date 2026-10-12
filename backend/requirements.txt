@@ -1,0 +1,3 @@
+# Backend dependencies:  pip install -r requirements.txt
+# (CORS is handled in app.py, so Flask is the only package needed.)
+Flask>=3.0
